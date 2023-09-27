@@ -5,6 +5,7 @@ export default function boss(path: string) {
     const content = fs.readFileSync(path, 'utf-8');
     const stats: Boss[] = JSON.parse(content);
 
-        const statsboss = stats[0];
+        const statsboss = stats[Math.floor(Math.random() * stats.length)];
         return statsboss;
-    }
+}
+//console.log(boss('../fichiers_json/bosses.json'));
