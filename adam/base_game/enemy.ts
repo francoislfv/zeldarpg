@@ -6,6 +6,5 @@ export default function enemy(path: string) {
     const stats: Enemy[] = JSON.parse(content);
 
         const statsenemy = stats[0];
-        //const  statreturn = [ statsenemy.name, statsenemy.hp, statsenemy.str ]
         return statsenemy;
     }
