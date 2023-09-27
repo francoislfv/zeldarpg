@@ -7,6 +7,7 @@ export default function character(path: string) {
     const content = fs.readFileSync(path, 'utf-8');
     const stats = JSON.parse(content);
 
-
+    const statscharater = stats[0];
+    return statscharater;
 
 }
