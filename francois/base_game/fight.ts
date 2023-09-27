@@ -1,8 +1,18 @@
 import enemy from './enemy'
+import character from './character'
 
-const enemychoisi = enemy("./../fichiers_json/enemies.json")
+export default function fight() {
+    const enemychoisi = enemy("./../fichiers_json/enemies.json");
+    
+    const characterchoisi = character("./../fichiers_json/players.json");
 
-const enemystats = [ enemychoisi.name, enemychoisi.hp, enemychoisi.str ]
+    const enemystats = [enemychoisi.name, enemychoisi.hp, enemychoisi.str]
+    const characterstats = [characterchoisi.name, characterchoisi.hp, characterchoisi.str]
 
-
-console.log("l'enemy", enemystats[0],"a", enemystats[1], "hp" )
+        while (enemychoisi.hp > 0) {
+            console.log(characterchoisi.name, "met", characterchoisi.str, "dégats")
+            console.log(enemychoisi.hp - characterchoisi.str)
+            break
+        }
+}
+fight()
