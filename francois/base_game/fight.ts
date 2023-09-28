@@ -84,25 +84,18 @@ characterFullHp = Math.min(characterFullHp, charHpDebut)
     } */
 }
 
-function pressKeyToContinue() {
+export function pressKeyToContinue() {
     rl.question("Press Enter to continue...");
     console.clear();
 }
 
+export function inputdebut(): string {
 
-hpDisplay()
-fight()
-pressKeyToContinue()
+    let getInput = (question: string) => rl.question(`${question}\n`);
+    let action: string = getInput('');
+    return action;
 
-hpDisplay()
-fight()
-pressKeyToContinue()
+}
 
-hpDisplay()
-fight()
-pressKeyToContinue()
 
-hpDisplay()
-fight()
-pressKeyToContinue()
 
