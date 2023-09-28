@@ -12,11 +12,6 @@ const charHpDebut: number = characterChoisi.hp;
 const charMissingHp: number = charHpDebut - characterChoisi.hp;
 
 export function inputMenu(): string {
-    let i: number = 0;
-    if (i <= 0) {
-        hpDisplay();
-        i++;
-    }
 
     const getInput = (question: string) => rl.question(`${question}\n`);
     let action: string = getInput(`----- OPTIONS -----\n1. 🗡️  ATTACK      2. 🍎 HEAL`);
@@ -33,14 +28,14 @@ export function hpDisplay(): void {
 }
 
 export function fight(): void {
-    const input = inputMenu();
+    // const input = inputMenu();
 
-    if (input === "1") {
+    if (inputMenu() === "1") {
         console.log(`\x1b[3m You attacked and dealt ${characterChoisi.str} damages! \x1b[0m\n`);
         console.log(`\x1b[3m ${enemyChoisi.name} attacked and dealt ${enemyChoisi.str} damages! \x1b[0m`);
         enemyMissingHp = enemyChoisi.hp - characterChoisi.str;
         console.log(enemyMissingHp);
-    } else if (input === "2") {
+    } else if (inputMenu() === "2") {
         if (characterChoisi.hp < 60) {
             console.log(`\x1b[3m You used heal! \x1b[0m\n`);
             characterChoisi.hp += 10;
@@ -56,13 +51,5 @@ export function fight(): void {
         console.log(`\x1b[3m You lost the fight! \x1b[0m\n`);
         return;
     }
-
-    inputMenu();
 }
 
-console.clear();
-fight();
-console.clear();
-fight();
-console.clear();
-fight();
