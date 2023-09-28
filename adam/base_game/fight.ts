@@ -75,7 +75,7 @@ export function fight(): void {
 
     
 characterFullHp = Math.min(characterFullHp, charHpDebut)
-   /* if (enemyFullHp === 0) {
+    /*if (enemyFullHp === 0) {
         console.log(`\x1b[3m You won the fight! \x1b[0m\n`);
         return;
     } else if (characterFullHp === 0) {
