@@ -7,5 +7,4 @@ export default function boss(path: string) {
 
         const statsboss = stats[Math.floor(Math.random() * stats.length)];
         return statsboss;
-}
-//console.log(boss('../fichiers_json/bosses.json'));
+    }
