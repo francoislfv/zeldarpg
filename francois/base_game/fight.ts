@@ -1,64 +1,68 @@
-import * as rl from 'readline-sync'; 
-import enemy from './enemy'
-import character from './character'
+import * as rl from 'readline-sync';
+import enemy from './enemy';
+import character from './character';
 
-const enemychoisi = enemy("./../fichiers_json/enemies.json");
-    
-const characterchoisi = character("./../fichiers_json/players.json");
+const enemyChoisi = enemy("./../fichiers_json/enemies.json");
+const characterChoisi = character("./../fichiers_json/players.json");
 
-    const enemystats = [enemychoisi.name, enemychoisi.hp, enemychoisi.str]
-    const characterstats = [characterchoisi.name, characterchoisi.hp, characterchoisi.str]
-    const enemyhpdebut: number = enemychoisi.hp
-    const enemymissinghp: number = enemyhpdebut - enemychoisi.hp
+const enemyHpDebut: number = enemyChoisi.hp;
+let enemyMissingHp: number = enemyHpDebut - enemyChoisi.hp;
 
-    const charhpdebut: number = characterchoisi.hp
-    const charmissinghp: number = charhpdebut - characterchoisi.hp
+const charHpDebut: number = characterChoisi.hp;
+const charMissingHp: number = charHpDebut - characterChoisi.hp;
 
-
-
-export function inputmenu () {
-let i: number = 0;
-if (i<=0) {
-hpdisplay();
-i++;
-}
-
-        function hpdisplay () {
-            const underscore: string ="💔"
-            //console.log("I".repeat(enemychoisi.hp));
-            console.log(` ⚔️  - FIGHT 1 - ⚔️\n`)
-            console.log(enemymissinghp)
-            console.log(`\x1b[31m${enemychoisi.name}\x1b[0m\nHP : ${"❤️ ".repeat(enemychoisi.hp)}${"💔".repeat(enemymissinghp)}  ${enemychoisi.hp}/${enemyhpdebut}\n`);
-            console.log(`\x1b[32m${characterchoisi.name}\x1b[0m\nHP : ${"❤️ ".repeat(characterchoisi.hp)}${underscore.repeat(charmissinghp)}  ${characterchoisi.hp}/${charhpdebut}\n`)
-            
-        
+export function inputMenu(): string {
+    let i: number = 0;
+    if (i <= 0) {
+        hpDisplay();
+        i++;
     }
 
-const getInput = (question: string) => rl.question(`${question}\n`);
-let action: string = getInput(`----- OPTIONS -----\n1. 🗡️  ATTACK      2. 🍎 HEAL`)
-return action
-
+    const getInput = (question: string) => rl.question(`${question}\n`);
+    let action: string = getInput(`----- OPTIONS -----\n1. 🗡️  ATTACK      2. 🍎 HEAL`);
+    return action;
 }
 
-export function fight() {
+export function hpDisplay(): void {
+    const underscore: string = "💔";
 
-    const input = inputmenu()
-            
-            if (input === "1") {
-                console.log(`\x1b[3m You attacked and dealt ${characterchoisi.str} damages! \x1b[0m\n`)
-                console.log(`\x1b[3m ${enemychoisi.name} attacked and dealt ${enemychoisi.str} damages! \x1b[0m`)
-                enemychoisi.hp = enemychoisi.hp - characterchoisi.str
-                console.log(enemychoisi.hp)
-                
-            } else if (input === "2") {
-                if (characterchoisi.hp < 60) {
-                console.log(`\x1b[3m You used heal! \x1b[0m\n`)
-                } else if (characterchoisi.hp > 59) {
-                    console.log("You can't use heal, you are full HP.")
-                }
-            }
-            inputmenu();
+    console.log(` ⚔️  - FIGHT 1 - ⚔️\n`);
+    console.log(enemyMissingHp);
+    console.log(`\x1b[31m${enemyChoisi.name}\x1b[0m\nHP : ${"❤️ ".repeat(enemyChoisi.hp - enemyMissingHp)}${"💔".repeat(enemyMissingHp)}  ${enemyChoisi.hp}/${enemyHpDebut}\n`);
+    console.log(`\x1b[32m${characterChoisi.name}\x1b[0m\nHP : ${"❤️ ".repeat(characterChoisi.hp)}${underscore.repeat(charMissingHp)}  ${characterChoisi.hp}/${charHpDebut}\n`);
 }
-fight()
-fight()
-fight()
+
+export function fight(): void {
+    const input = inputMenu();
+
+    if (input === "1") {
+        console.log(`\x1b[3m You attacked and dealt ${characterChoisi.str} damages! \x1b[0m\n`);
+        console.log(`\x1b[3m ${enemyChoisi.name} attacked and dealt ${enemyChoisi.str} damages! \x1b[0m`);
+        enemyMissingHp = enemyChoisi.hp - characterChoisi.str;
+        console.log(enemyMissingHp);
+    } else if (input === "2") {
+        if (characterChoisi.hp < 60) {
+            console.log(`\x1b[3m You used heal! \x1b[0m\n`);
+            characterChoisi.hp += 10;
+        } else if (characterChoisi.hp > 59) {
+            console.log("You can't use heal, you are full HP.");
+        }
+    }
+
+    if (enemyMissingHp <= 0) {
+        console.log(`\x1b[3m You won the fight! \x1b[0m\n`);
+        return;
+    } else if (characterChoisi.hp <= 0) {
+        console.log(`\x1b[3m You lost the fight! \x1b[0m\n`);
+        return;
+    }
+
+    inputMenu();
+}
+
+console.clear();
+fight();
+console.clear();
+fight();
+console.clear();
+fight();
