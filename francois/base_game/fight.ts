@@ -50,14 +50,31 @@ export function fight(): void {
 
 
     } else if (action === "2") {
-        if (characterFullHp < 60) {
+        if (characterFullHp < charHpDebut) {
             console.log(`\x1b[3m You used heal! \x1b[0m\n`);
-            characterFullHp += 10;
-        } else if (enemyFullHp > 59) {
+            const healAmount = Math.min(charHpDebut - characterFullHp, charHpDebut/2);
+            characterFullHp += healAmount;
+            charMissingHp = Math.max(0, charMissingHp - (charHpDebut / 2));
+
+            console.log(`\x1b[3m ${enemyChoisi.name} attacked and dealt ${enemyChoisi.str} damages! \x1b[0m\n`);
+
+
+            const damageDealtChar = Math.min(characterChoisi.str);
+            enemyMissingHp += damageDealtChar
+            enemyFullHp -= damageDealtChar
+    
+            const damageDealtEnemy = Math.min(enemyChoisi.str)
+            charMissingHp += damageDealtEnemy
+            characterFullHp -= damageDealtEnemy
+    
+
+        } else {
             console.log("You can't use heal, you are full HP.");
         }
     }
 
+    
+characterFullHp = Math.min(characterFullHp, charHpDebut)
    /* if (enemyFullHp === 0) {
         console.log(`\x1b[3m You won the fight! \x1b[0m\n`);
         return;
@@ -67,11 +84,25 @@ export function fight(): void {
     } */
 }
 
+function pressKeyToContinue() {
+    rl.question("Press Enter to continue...");
+    console.clear();
+}
+
+
 hpDisplay()
 fight()
+pressKeyToContinue()
+
 hpDisplay()
 fight()
+pressKeyToContinue()
+
 hpDisplay()
 fight()
+pressKeyToContinue()
+
 hpDisplay()
 fight()
+pressKeyToContinue()
+
