@@ -50,10 +50,10 @@ export function fight(): void {
 
 
     } else if (action === "2") {
-        if (characterChoisi.hp < 60) {
+        if (characterFullHp < 60) {
             console.log(`\x1b[3m You used heal! \x1b[0m\n`);
-            characterChoisi.hp += 10;
-        } else if (characterChoisi.hp > 59) {
+            characterFullHp += 10;
+        } else if (enemyFullHp > 59) {
             console.log("You can't use heal, you are full HP.");
         }
     }
