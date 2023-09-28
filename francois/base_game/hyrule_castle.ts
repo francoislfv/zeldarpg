@@ -1,13 +1,32 @@
 
-import { pressKeyToContinue, inputMenu, hpDisplay, fight, enemyHpDebut, characterChoisi, enemyChoisi, enemyFullHp, enemyMissingHp, charHpDebut, characterFullHp, charMissingHp, resethp} from './fight';
+import { pressKeyToContinue, inputMenu, hpDisplay, fight} from './fight';
 import  {Menu_welcome_player, Menu_difficulty, Menu_Rounds} from './menu';
 import * as rl from 'readline-sync';
+import character from './character';
+import enemy from './enemy';
 
 
 
 let action1: string;
 let action2: string;
 let action3: string;
+
+let enemyChoisi = enemy("./../fichiers_json/enemies.json");
+let characterChoisi = character("./../fichiers_json/players.json");
+// declarer perso / enemy / Boss
+
+const enemyHpDebut = enemyChoisi.hp;
+let enemyFullHp = Math.min(enemyChoisi.hp, enemyChoisi.hp)
+let enemyMissingHp = 0;
+
+const charHpDebut = characterChoisi.hp;
+let characterFullHp = characterChoisi.hp;
+let charMissingHp = 0;
+
+
+
+
+
 
 export function input1(): string {
 
@@ -50,7 +69,10 @@ export function main () {
                         const round = 10
                             while (i < round) {
                                 mainFight();
-                    }
+                                console.log("hellooooooooooooooooooooooooooooooooooooooo")
+
+                                // regerner l'enemy
+                            }
                 }
         } else if(action2 === "2") {
             console.log(`\x1b[3mYou choosed the hard difficulty, enemy stats are x1.5.\x1b[0m\n`);
@@ -70,25 +92,22 @@ export function main () {
 
 export function mainFight() {
 
-    while (enemyFullHp > 1 || characterFullHp > 1) {
-        hpDisplay(i);
-        fight();
+    while (enemyFullHp > 0 || characterFullHp > 0) {
+        hpDisplay(enemyChoisi, characterChoisi, i, enemyFullHp, enemyMissingHp, enemyHpDebut, characterFullHp, charMissingHp, charHpDebut);
+        fight(enemyChoisi, characterChoisi, enemyFullHp, enemyMissingHp, characterFullHp, charMissingHp, charHpDebut);
         pressKeyToContinue();
 
-
-
-        if (enemyFullHp === 0) {
-            console.log(`\x1b[3m You won the fight! \x1b[0m\n`);
-            resethp();
-            i++;
-            pressKeyToContinue();
-        } else if (characterFullHp === 0) {
-            console.log(`\x1b[3m You lost the fight! \x1b[0m\n`);
-            resethp();
-            i++;
-            pressKeyToContinue();
-        }
     }
+    if (enemyFullHp === 0) {
+        console.log(`\x1b[3m You won the fight! \x1b[0m\n`);
+        // resethp();
+        pressKeyToContinue();
+    } else if (characterFullHp === 0) {
+        console.log(`\x1b[3m You lost the fight! \x1b[0m\n`);
+        // resethp();
+        pressKeyToContinue();
+    }
+    i++;
    
 }
 main()

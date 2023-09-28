@@ -1,17 +1,7 @@
 import * as rl from 'readline-sync';
-import enemy from './enemy';
-import character from './character';
 
-export let enemyChoisi = enemy("./../fichiers_json/enemies.json");
-export let characterChoisi = character("./../fichiers_json/players.json");
 
-export const enemyHpDebut: number = enemyChoisi.hp;
-export let enemyFullHp: number = Math.min(enemyChoisi.hp, enemyChoisi.hp)
-export let enemyMissingHp: number = 0;
 
-export const charHpDebut: number = characterChoisi.hp;
-export let characterFullHp: number = characterChoisi.hp;
-export let charMissingHp: number = 0;
 
 export function inputMenu(): string {
 
@@ -21,16 +11,17 @@ export function inputMenu(): string {
 
 }
 
-export function hpDisplay(i : number) {
+export function hpDisplay(enemyChoisi:any,characterChoisi: any, i : number, enemyFullHp : number, enemyMissingHp : number, enemyHpDebut : number, characterFullHp : number, charMissingHp : number, charHpDebut : number) {
 
 
     console.log(` ⚔️  - FIGHT ${[i]} - ⚔️\n`);
     console.log(`\x1b[31m${enemyChoisi.name}\x1b[0m\nHP : ${"❤️ ".repeat(Math.max(0, enemyFullHp))}${"💔".repeat(enemyMissingHp)}  ${Math.max(0, enemyFullHp)}/${enemyHpDebut}\n`);
     console.log(`\x1b[32m${characterChoisi.name}\x1b[0m\nHP : ${"❤️ ".repeat(Math.max(0, characterFullHp))}${"💔".repeat(charMissingHp)}  ${Math.max(0, characterFullHp)}/${charHpDebut}\n`);
+    return [enemyFullHp, characterFullHp, enemyChoisi, characterChoisi, enemyMissingHp, charMissingHp, charHpDebut]
 
 }
 
-export function fight(): void {
+export function fight(enemyChoisi:any,characterChoisi: any, enemyFullHp : number, enemyMissingHp : number, characterFullHp : number, charMissingHp : number, charHpDebut : number) {
     const action = inputMenu();
 
 
@@ -68,6 +59,10 @@ export function fight(): void {
             console.log("You can't use heal, you are full HP.");
         
     }
+
+
+    return [enemyFullHp, characterFullHp, enemyChoisi, characterChoisi, enemyMissingHp, charMissingHp, charHpDebut]
+
 } //if ( )
 
 
@@ -88,10 +83,10 @@ export function pressKeyToContinue() {
     console.clear();
 }
 
-export function resethp() {
+/*export function resethp() {
     enemyFullHp = enemyChoisi.hp;
     enemyMissingHp = 0;
-}
+}*/
 
 
 
