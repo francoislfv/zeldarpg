@@ -2,16 +2,16 @@ import * as rl from 'readline-sync';
 import enemy from './enemy';
 import character from './character';
 
-let enemyChoisi = enemy("./../fichiers_json/enemies.json");
-let characterChoisi = character("./../fichiers_json/players.json");
+export let enemyChoisi = enemy("./../fichiers_json/enemies.json");
+export let characterChoisi = character("./../fichiers_json/players.json");
 
-const enemyHpDebut: number = enemyChoisi.hp;
-let enemyFullHp: number = enemyChoisi.hp
-let enemyMissingHp: number = 0;
+export const enemyHpDebut: number = enemyChoisi.hp;
+export let enemyFullHp: number = Math.min(enemyChoisi.hp, enemyChoisi.hp)
+export let enemyMissingHp: number = 0;
 
-const charHpDebut: number = characterChoisi.hp;
-let characterFullHp: number = characterChoisi.hp;
-let charMissingHp: number = 0;
+export const charHpDebut: number = characterChoisi.hp;
+export let characterFullHp: number = characterChoisi.hp;
+export let charMissingHp: number = 0;
 
 export function inputMenu(): string {
 
@@ -21,10 +21,10 @@ export function inputMenu(): string {
 
 }
 
-export function hpDisplay(): void {
+export function hpDisplay(i : number) {
 
 
-    console.log(` ⚔️  - FIGHT 1 - ⚔️\n`);
+    console.log(` ⚔️  - FIGHT ${[i]} - ⚔️\n`);
     console.log(`\x1b[31m${enemyChoisi.name}\x1b[0m\nHP : ${"❤️ ".repeat(Math.max(0, enemyFullHp))}${"💔".repeat(enemyMissingHp)}  ${Math.max(0, enemyFullHp)}/${enemyHpDebut}\n`);
     console.log(`\x1b[32m${characterChoisi.name}\x1b[0m\nHP : ${"❤️ ".repeat(Math.max(0, characterFullHp))}${"💔".repeat(charMissingHp)}  ${Math.max(0, characterFullHp)}/${charHpDebut}\n`);
 
@@ -32,6 +32,7 @@ export function hpDisplay(): void {
 
 export function fight(): void {
     const action = inputMenu();
+
 
     if (action === "1") {
         console.log(`\n\x1b[3m You attacked and dealt ${characterChoisi.str} damages! \x1b[0m\n`);
@@ -57,11 +58,6 @@ export function fight(): void {
             charMissingHp = Math.max(0, charMissingHp - (charHpDebut / 2));
 
             console.log(`\x1b[3m ${enemyChoisi.name} attacked and dealt ${enemyChoisi.str} damages! \x1b[0m\n`);
-
-
-            const damageDealtChar = Math.min(characterChoisi.str);
-            enemyMissingHp += damageDealtChar
-            enemyFullHp -= damageDealtChar
     
             const damageDealtEnemy = Math.min(enemyChoisi.str)
             charMissingHp += damageDealtEnemy
@@ -70,8 +66,11 @@ export function fight(): void {
 
         } else {
             console.log("You can't use heal, you are full HP.");
-        }
+        
     }
+} //if ( )
+
+
 
     
 characterFullHp = Math.min(characterFullHp, charHpDebut)
@@ -89,12 +88,9 @@ export function pressKeyToContinue() {
     console.clear();
 }
 
-export function inputdebut(): string {
-
-    let getInput = (question: string) => rl.question(`${question}\n`);
-    let action: string = getInput('');
-    return action;
-
+export function resethp() {
+    enemyFullHp = enemyChoisi.hp;
+    enemyMissingHp = 0;
 }
 
 
