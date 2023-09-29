@@ -12,8 +12,7 @@
         "luck": 5,
         "race": 15,
         "class": 5,
-        "rarity": 3,
-        "hpDebut": 40
+        "rarity": 3
     },
     {
         "id": 2,

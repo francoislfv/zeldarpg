@@ -1,6 +1,8 @@
 import * as rl from 'readline-sync';
 import enemy from './enemy';
 import character from './character';
+import { Menu_Rounds , Menu_difficulty, Menu_welcome_player} from './menu';
+
 
 export let enemyChoisi = enemy("./../fichiers_json/enemies.json");
 export let characterChoisi = character("./../fichiers_json/players.json");
@@ -14,9 +16,6 @@ let characterHp: number = characterChoisi.hp
 
 const characterHpDebut: number = characterChoisi.hp;
 let enemyHpDebut: number = enemyChoisi.hp
-
-let etageactuel: number = 1
-let etageprochain: number = 2
 
 
 
@@ -147,9 +146,11 @@ export function input3(): string {
 
 
 let roundJoué = 1;
+let etageactuel: number = 1
+let etageprochain: number = 2
 
 
-function checkround() {
+export function checkround() {
     if (etageactuel === etageprochain) {
         etageprochain = etageprochain + 1;
         roundJoué++;
@@ -172,7 +173,7 @@ export function mainFight() {
             etageactuel = etageactuel + 1;
             checkround();
             
-            if (enemyHp === 0) {
+            if (enemyHp <= 0) {
                 enemyChoisi = enemy("./../fichiers_json/enemies.json");
                 enemyHpDebut = enemyChoisi.hpDebut;
                 enemyHp = enemyChoisi.hp;
@@ -190,4 +191,34 @@ export function mainFight() {
 
 
 
-mainFight()
+export function jeu() {
+    Menu_welcome_player();
+    input1();
+    console.clear();
+    if (action1 === "1") {
+        Menu_difficulty();
+        input2();
+        if (action2 === "1") {
+            console.log(`\x1b[3mYou choosed the normal difficulty, enemy stats are unchanged.\x1b[0m\n`);
+            console.clear();
+            Menu_Rounds();
+            input3()
+            if (action3 === "1") {
+                console.log(`\x1b[3mYou choosed to play 10 rounds before the boss fight.\x1b[0m\n`);
+                pressKeyToContinue();
+                mainFight();
+            }
+        } else if (action2 === "2") {
+            console.log(`\x1b[3mYou choosed the hard difficulty, enemy stats are x1.5.\x1b[0m\n`);
+            console.clear();
+        } else if (action2 === "3") {
+            console.log(`\x1b[3mYou choosed the insane difficulty, enemy stats are x2.\x1b[0m\n`);
+            console.clear();
+        }
+    } else if (action1 === "2") {
+        return;
+    }
+
+}
+
+jeu()
