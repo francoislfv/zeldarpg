@@ -12,5 +12,6 @@ export default interface Enemy {
     race: number,
     class: number,
     rarity: number,
+    hpDebut: number,
 
 }
