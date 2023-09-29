@@ -12,5 +12,6 @@ export default interface Player {
     race: number,
     class: number,
     rarity: number,
+    coin: number,
 
 }

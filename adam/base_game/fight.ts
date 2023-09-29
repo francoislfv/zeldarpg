@@ -1,17 +1,27 @@
 import * as rl from 'readline-sync';
 import enemy from './enemy';
 import character from './character';
+import { charcoin } from '../mods/basic_game_customization';
 
 export let enemyChoisi = enemy("./../fichiers_json/enemies.json");
 export let characterChoisi = character("./../fichiers_json/players.json");
 
-export const enemyHpDebut: number = enemyChoisi.hp;
-export let enemyFullHp: number = Math.min(enemyChoisi.hp, enemyChoisi.hp)
-export let enemyMissingHp: number = 0;
 
-export const charHpDebut: number = characterChoisi.hp;
-export let characterFullHp: number = characterChoisi.hp;
-export let charMissingHp: number = 0;
+
+
+let enemyHp: number = enemyChoisi.hp
+let characterHp: number = characterChoisi.hp
+
+
+const characterHpDebut: number = characterChoisi.hp;
+let enemyHpDebut: number = enemyChoisi.hp
+
+let etageactuel: number = 1
+let etageprochain: number = 2
+
+
+
+
 
 export function inputMenu(): string {
 
@@ -21,76 +31,164 @@ export function inputMenu(): string {
 
 }
 
-export function hpDisplay(i : number) {
 
 
-    console.log(` ⚔️  - FIGHT ${[i]} - ⚔️\n`);
-    console.log(`\x1b[31m${enemyChoisi.name}\x1b[0m\nHP : ${"❤️ ".repeat(Math.max(0, enemyFullHp))}${"💔".repeat(enemyMissingHp)}  ${Math.max(0, enemyFullHp)}/${enemyHpDebut}\n`);
-    console.log(`\x1b[32m${characterChoisi.name}\x1b[0m\nHP : ${"❤️ ".repeat(Math.max(0, characterFullHp))}${"💔".repeat(charMissingHp)}  ${Math.max(0, characterFullHp)}/${charHpDebut}\n`);
 
-}
 
-export function fight(): void {
+export function fight() {
+
     const action = inputMenu();
+
+    let characterHpDebut: number = characterChoisi.hp;
+
 
 
     if (action === "1") {
-        console.log(`\n\x1b[3m You attacked and dealt ${characterChoisi.str} damages! \x1b[0m\n`);
-        console.log(`\x1b[3m ${enemyChoisi.name} attacked and dealt ${enemyChoisi.str} damages! \x1b[0m\n`);
-
-
-        const damageDealtChar = Math.min(characterChoisi.str);
-        enemyMissingHp += damageDealtChar
-        enemyFullHp -= damageDealtChar
-
         const damageDealtEnemy = Math.min(enemyChoisi.str)
-        charMissingHp += damageDealtEnemy
-        characterFullHp -= damageDealtEnemy
+        characterHp = characterHp - damageDealtEnemy
+
+        const damageDealtChar = Math.min(characterChoisi.str)
+        enemyHp = enemyHp - damageDealtChar
+
+        console.log(`\n\x1b[3m You attacked and dealt ${damageDealtChar} damages! \x1b[0m\n`);
+        console.log(`\x1b[3m ${enemyChoisi.name} attacked and dealt ${damageDealtEnemy} damages! \x1b[0m\n`);
 
 
-
-
+        return { enemyHp, characterHp }
     } else if (action === "2") {
-        if (characterFullHp < charHpDebut) {
+        if (characterHp < characterHpDebut) {
+
             console.log(`\x1b[3m You used heal! \x1b[0m\n`);
-            const healAmount = Math.min(charHpDebut - characterFullHp, charHpDebut/2);
-            characterFullHp += healAmount;
-            charMissingHp = Math.max(0, charMissingHp - (charHpDebut / 2));
+            const healAmount = Math.min(characterHpDebut - characterHp, characterHpDebut / 2);
+            characterHp += healAmount;
+            const damageDealtEnemy = Math.min(enemyChoisi.str)
+            characterHp = characterHp - damageDealtEnemy
+            if (characterHp > characterHpDebut) {
+                characterHp = characterHpDebut
+            }
 
             console.log(`\x1b[3m ${enemyChoisi.name} attacked and dealt ${enemyChoisi.str} damages! \x1b[0m\n`);
-    
-            const damageDealtEnemy = Math.min(enemyChoisi.str)
-            charMissingHp += damageDealtEnemy
-            characterFullHp -= damageDealtEnemy
-    
 
         } else {
             console.log("You can't use heal, you are full HP.");
-        
+            pressKeyToContinue()
+        }
+
     }
 
-} //if ( )
+    characterHp = Math.min(characterHp, characterHpDebut)
 
-
-
-    
-characterFullHp = Math.min(characterFullHp, charHpDebut)
-   /* if (enemyFullHp === 0) {
-        console.log(`\x1b[3m You won the fight! \x1b[0m\n`);
-        return;
-    } else if (characterFullHp === 0) {
-        console.log(`\x1b[3m You lost the fight! \x1b[0m\n`);
-        return;
-    } */
 }
+
+
+
+
+
+
+export function hpDisplay() {
+
+
+    const charRemainingHp = Math.max(0, characterHp);
+    const enemyRemainingHp = Math.max(0, enemyHp);
+
+
+    console.log(` ⚔️  - FIGHT ${etageactuel} - ⚔️\n`);
+    console.log(`\x1b[31m${enemyChoisi.name}\x1b[0m\nHP : ${"❤️ ".repeat(enemyRemainingHp)}${"💔".repeat(Math.max(0, enemyHpDebut - enemyRemainingHp))}  ${enemyRemainingHp}/${enemyHpDebut}\n`);
+    console.log(`\x1b[32m${characterChoisi.name}\x1b[0m\nHP : ${"❤️ ".repeat(charRemainingHp)}${"💔".repeat(Math.max(0, characterHpDebut - charRemainingHp))}  ${charRemainingHp}/${characterHpDebut}\n`);
+
+}
+
+
+
+
 
 export function pressKeyToContinue() {
     rl.question("Press Enter to continue...");
     console.clear();
 }
 
-export function resethp() {
-    enemyFullHp = enemyChoisi.hp;
-    enemyMissingHp = 0;
+
+
+
+
+
+let action1: string;
+let action2: string;
+let action3: string;
+
+
+
+export function input1(): string {
+
+    let getInput = (question: string) => rl.question(`${question}\n`);
+    action1 = getInput('');
+    return action1;
 }
+
+
+
+export function input2(): string {
+
+    let getInput = (question: string) => rl.question(`${question}\n`);
+    action2 = getInput('');
+    return action2;
+}
+
+
+
+export function input3(): string {
+
+    let getInput = (question: string) => rl.question(`${question}\n`);
+    action3 = getInput('');
+    return action3;
+}
+
+
+
+
+
+let roundJoué = 1;
+
+
+function checkround() {
+    if (etageactuel === etageprochain) {
+        etageprochain = etageprochain + 1;
+        roundJoué++;
+        return roundJoué;
+    }
+}
+
+
+
+
+export function mainFight() {
+    
+    while (roundJoué < 10) {
+        if (characterHp > 0 && enemyHp > 0) {
+            hpDisplay();
+            fight();
+            pressKeyToContinue();
+            console.log(roundJoué)
+        } else {
+            etageactuel = etageactuel + 1;
+            checkround();
+            
+            if (enemyHp === 0) {
+                enemyChoisi = enemy("./../fichiers_json/enemies.json");
+                enemyHpDebut = enemyChoisi.hpDebut;
+                enemyHp = enemyChoisi.hp;
+                console.log(`Tu as terminé l'étage ${roundJoué}! Tu changes de niveau et tombes sur : ${enemyChoisi.name}`);
+                charcoin();
+                pressKeyToContinue()
+            } 
+            
+            if (characterHp === 0) {
+                console.log(`Tu es mort`);
+            }
+        }
+    }
+}
+
+
+
 

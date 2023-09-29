@@ -5,12 +5,6 @@ export default function enemy(path: string) {
     const content = fs.readFileSync(path, 'utf-8');
     const stats: Enemy[] = JSON.parse(content);
 
-
-
-
-
-
-    
     const statsenemy = stats[Math.floor(Math.random() * stats.length)];
     return statsenemy;
 }
