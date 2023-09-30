@@ -137,6 +137,8 @@ function displayBossLore(isBossDefeated: boolean) {
         console.log(`${bosschoisi.name} is defeated, vanishing into the darkness. The treasure is revealed. \n${characterChoisi.name} triumphs, restoring peace to Hyrule.`);
     } else {
         console.log(`${characterChoisi.name} falls, unable to continue. \n${bosschoisi.name} triumphs, plunging Hyrule into eternal darkness.`);
+        pressKeyToContinue()
+        return
     }
 }
 
@@ -210,7 +212,7 @@ export function checkround() {
 
 
 export function mainFight() {
-    while (roundJoué < 11) {
+    while (roundJoué < 3) {
         if (characterHp > 0 && enemyHp > 0) {
             hpDisplay(); // Display HP before taking action
             fight();
