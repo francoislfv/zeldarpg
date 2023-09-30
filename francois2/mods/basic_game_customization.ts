@@ -74,3 +74,12 @@ export function Menu_Rounds() {
 
 
     
+export function ChooseRoundsToPlay(chooseRounds : number) {
+    let roundsToPlay = chooseRounds;
+    return roundsToPlay;
+}
+
+export function ChooseDifficultyToPlay(ChooseDifficulty: number) {
+    let Difficulty= ChooseDifficulty;
+    return Difficulty;
+}
