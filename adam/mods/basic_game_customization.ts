@@ -1,11 +1,9 @@
 import enemy from "../base_game/enemy";
 import boss from "../base_game/boss";
-import character from "../base_game/character";
 import { characterChoisi,  pressKeyToContinue, mainFight } from "../base_game/fight";
-import * as rl from 'readline-sync';
 let enemyChoisi = enemy("./../fichiers_json/enemies.json");
 let bossChoisi = boss("./../fichiers_json/bosses.json");
-
+//console.log(enemyChoisi.name, enemyChoisi.hp, enemyChoisi.str)
 export  function Diff_insane () {
     enemyChoisi.hp = enemyChoisi.hp * 2;
     enemyChoisi.mp = enemyChoisi.mp * 2;
@@ -27,9 +25,14 @@ export  function Diff_insane () {
     bossChoisi.luck = bossChoisi.luck * 2;
     bossChoisi.race = bossChoisi.race * 2;
     bossChoisi.class = bossChoisi.class * 2;
-
+    return;
+   // console.log(enemyChoisi.name, enemyChoisi.hp, enemyChoisi.str)
 }
 
+
+
+Diff_insane();
+console.log(enemyChoisi.name, enemyChoisi.hp, enemyChoisi.str)
 export function Diff_hard () {
     enemyChoisi.hp = enemyChoisi.hp * 1.5;
     enemyChoisi.mp = enemyChoisi.mp * 1.5;
@@ -51,13 +54,14 @@ export function Diff_hard () {
     bossChoisi.luck = bossChoisi.luck * 1.5;
     bossChoisi.race = bossChoisi.race * 1.5;
     bossChoisi.class = bossChoisi.class * 1.5;
-
+    return(enemyChoisi.hp, enemyChoisi.mp, enemyChoisi.str, enemyChoisi.int, enemyChoisi.def, enemyChoisi.res, enemyChoisi.spd, enemyChoisi.luck, enemyChoisi.race, enemyChoisi.class, bossChoisi.hp, bossChoisi.mp, bossChoisi.str, bossChoisi.int, bossChoisi.def, bossChoisi.res, bossChoisi.spd, bossChoisi.luck, bossChoisi.race, bossChoisi.class);
 }
 
 let f = 0;
-let i = 1;
+let i = 0;
 export function Rounds_10() {
-        const round = 9;
+    console.log("hfruhrfu")
+        const round = 3;
             while (i < round) {
             i = i + 1;
             mainFight();
@@ -105,7 +109,7 @@ export function Rounds_100() {
 export function charcoin() {
     let coin = characterChoisi.coin ;
         coin = coin + 1;
-        console.log(`Vous avez reçu 1 pièce, vous avez maintenant ${coin} pièces`);
+        console.log(`🪙  Vous avez reçu 1 pièce, vous avez maintenant ${coin} pièces 🪙`);
 }
 
 
