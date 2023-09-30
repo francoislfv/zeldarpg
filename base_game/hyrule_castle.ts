@@ -2,7 +2,7 @@ import * as rl from 'readline-sync';
 import enemy from './enemy';
 import character from './character';
 import boss from './boss';
-import { Menu_welcome_player, Menu_Rounds, ChooseRoundsToPlay, ChooseDifficultyToPlay, Menu_difficulty} from '../mods/basic_game_customization';
+import { Menu_welcome_player, Menu_Rounds, ChooseRoundsToPlay, ChooseDifficultyToPlay, Menu_difficulty } from '../mods/basic_game_customization';
 
 
 
@@ -87,8 +87,8 @@ export function fight(Difficulty: number) {
 
 export function bossFight() {
     console.clear();
-    
-    
+
+
     while (characterHp > 0 && bossHp > 0) {
         bossHpDisplay();
         const action = inputMenu()
@@ -125,8 +125,8 @@ export function bossFight() {
         pressKeyToContinue()
     }
     const isBossDefeated = bossHp <= 0;
-    
-  
+
+
     displayBossLore(isBossDefeated);
 }
 
@@ -223,8 +223,6 @@ export function checkround() {
 }
 
 
-// let roundsToPlay: number
-
 
 export function jeu() {
     Menu_welcome_player();
@@ -233,82 +231,102 @@ export function jeu() {
     if (action1 === "1") {
         Menu_Rounds();
         input2();
-            if (action2 === "1") {
-                console.log(`\x1b[31m you have chosen to enter the 10-rounds tower. The final boss awaits you at the top.\x1b[0m\n\n`);
-                console.clear()
-                
-                Menu_difficulty()
-                input3()
-                if (action3 === "1") {
-                    console.log(`\x1b[31m You have chosen to play on normal difficulty. Enemy stats are unchanged.\x1b[0m\n\n`);
+        if (action2 === "1") {
+            console.log(`\x1b[31m you have chosen to enter the 10-rounds tower. The final boss awaits you at the top.\x1b[0m\n\n`);
+            console.clear()
+
+            Menu_difficulty()
+            input3()
+            if (action3 === "1") {
+                console.log(`\x1b[31m You have chosen to play on normal difficulty. Enemy stats are unchanged.\x1b[0m\n\n`);
                 pressKeyToContinue()
-                    mainFight(ChooseRoundsToPlay(10), ChooseDifficultyToPlay(1))
-                } else if (action3 === "2") {
-                    console.log(`\x1b[31m You have chosen to play on hard difficulty. Enemy stats are x1.5.\x1b[0m\n\n`);
-                    pressKeyToContinue()
-                    console.log("1111cc")
-                    mainFight(ChooseRoundsToPlay(10), ChooseDifficultyToPlay(1.5))
-                    console.log("21°03NNCNKC")
-                } else if (action3 === "3") {
-                    console.log(`\x1b[31m You have chosen to play on hard difficulty. Enemy stats are x1.5.\x1b[0m\n\n`);
-                    pressKeyToContinue()
-                    mainFight(ChooseRoundsToPlay(10), ChooseDifficultyToPlay(2))
-                }
-            } else if (action2 === "2") {
-                console.log(`\x1b[31m you have chosen to enter the 20-rounds tower. The final boss awaits you at the top.\x1b[0m\n\n`);
-                console.clear()
-                Menu_difficulty()
-                input3()
-                if (action3 === "1") {
-                    console.log(`\x1b[31m You have chosen to play on normal difficulty. Enemy stats are unchanged.\x1b[0m\n\n`);
-                    pressKeyToContinue()
-                    mainFight(ChooseRoundsToPlay(20), ChooseDifficultyToPlay(1))
-                } else if (action3 === "2") {
-                    console.log(`\x1b[31m You have chosen to play on hard difficulty. Enemy stats are x1.5.\x1b[0m\n\n`);
-                    pressKeyToContinue()
-                    mainFight(ChooseRoundsToPlay(20), ChooseDifficultyToPlay(1.5))
-                } else if (action3 === "3") {
-                    console.log(`\x1b[31m You have chosen to play on insane difficulty. Enemy stats are x2.\x1b[0m\n\n`);
-                    pressKeyToContinue()
-                    mainFight(ChooseRoundsToPlay(20), ChooseDifficultyToPlay(2))
-                }
-            } else if (action2 === "3") {
-                console.log(`\x1b[31m you have chosen to enter the 50-rounds tower. The final boss awaits you at the top.\x1b[0m\n\n`);
-                console.clear()
-                Menu_difficulty()
-                input3()
-                if (action3 === "1") {
-                    console.log(`\x1b[31m You have chosen to play on normal difficulty. Enemy stats are unchanged.\x1b[0m\n\n`);
-                    pressKeyToContinue()
-                    mainFight(ChooseRoundsToPlay(50), ChooseDifficultyToPlay(1))
-                } else if (action3 === "2") {
-                    console.log(`\x1b[31m You have chosen to play on hard difficulty. Enemy stats are x1.5.\x1b[0m\n\n`);
-                    pressKeyToContinue()
-                    mainFight(ChooseRoundsToPlay(50), ChooseDifficultyToPlay(1.5))
-                } else if (action3 === "3") {
-                    console.log(`\x1b[31m You have chosen to play on insane difficulty. Enemy stats are x2.\x1b[0m\n\n`);
-                    pressKeyToContinue()
-                    mainFight(ChooseRoundsToPlay(50), ChooseDifficultyToPlay(2))
-                }
-            } else if (action2 === "4") {
-                console.log(`\x1b[31m you have chosen to enter the 20-rounds tower. The final boss awaits you at the top.\x1b[0m\n\n`);
-                console.clear()
-                Menu_difficulty()
-                input3()
-                if (action3 === "1") {
-                    console.log(`\x1b[31m You have chosen to play on normal difficulty. Enemy stats are unchanged.\x1b[0m\n\n`);
-                    pressKeyToContinue()
-                    mainFight(ChooseRoundsToPlay(100), ChooseDifficultyToPlay(1))
-                } else if (action3 === "2") {
-                    console.log(`\x1b[31m You have chosen to play on hard difficulty. Enemy stats are x1.5.\x1b[0m\n\n`);
-                    pressKeyToContinue()
-                    mainFight(ChooseRoundsToPlay(100), ChooseDifficultyToPlay(1.5))
-                } else if (action3 === "3") {
-                    console.log(`\x1b[31m You have chosen to play on insane difficulty. Enemy stats are x2.\x1b[0m\n\n`);
-                    pressKeyToContinue()
-                    mainFight(ChooseRoundsToPlay(100), ChooseDifficultyToPlay(2))
-                }
+                mainFight(ChooseRoundsToPlay(10), ChooseDifficultyToPlay(1))
+            } else if (action3 === "2") {
+                console.log(`\x1b[31m You have chosen to play on hard difficulty. Enemy stats are x1.5.\x1b[0m\n\n`);
+                pressKeyToContinue()
+                console.log("1111cc")
+                mainFight(ChooseRoundsToPlay(10), ChooseDifficultyToPlay(1.5))
+                console.log("21°03NNCNKC")
+            } else if (action3 === "3") {
+                console.log(`\x1b[31m You have chosen to play on hard difficulty. Enemy stats are x1.5.\x1b[0m\n\n`);
+                pressKeyToContinue()
+                mainFight(ChooseRoundsToPlay(10), ChooseDifficultyToPlay(2))
+            } else if (action3 === "4") {
+                console.log("LEAVING THE GAME\n")
+                pressKeyToContinue();
+                return;
             }
+        } else if (action2 === "2") {
+            console.log(`\x1b[31m you have chosen to enter the 20-rounds tower. The final boss awaits you at the top.\x1b[0m\n\n`);
+            console.clear()
+            Menu_difficulty()
+            input3()
+            if (action3 === "1") {
+                console.log(`\x1b[31m You have chosen to play on normal difficulty. Enemy stats are unchanged.\x1b[0m\n\n`);
+                pressKeyToContinue()
+                mainFight(ChooseRoundsToPlay(20), ChooseDifficultyToPlay(1))
+            } else if (action3 === "2") {
+                console.log(`\x1b[31m You have chosen to play on hard difficulty. Enemy stats are x1.5.\x1b[0m\n\n`);
+                pressKeyToContinue()
+                mainFight(ChooseRoundsToPlay(20), ChooseDifficultyToPlay(1.5))
+            } else if (action3 === "3") {
+                console.log(`\x1b[31m You have chosen to play on insane difficulty. Enemy stats are x2.\x1b[0m\n\n`);
+                pressKeyToContinue()
+                mainFight(ChooseRoundsToPlay(20), ChooseDifficultyToPlay(2))
+            } else if (action3 === "4") {
+                console.log("LEAVING THE GAME\n")
+                pressKeyToContinue();
+                return;
+            }
+        } else if (action2 === "3") {
+            console.log(`\x1b[31m you have chosen to enter the 50-rounds tower. The final boss awaits you at the top.\x1b[0m\n\n`);
+            console.clear()
+            Menu_difficulty()
+            input3()
+            if (action3 === "1") {
+                console.log(`\x1b[31m You have chosen to play on normal difficulty. Enemy stats are unchanged.\x1b[0m\n\n`);
+                pressKeyToContinue()
+                mainFight(ChooseRoundsToPlay(50), ChooseDifficultyToPlay(1))
+            } else if (action3 === "2") {
+                console.log(`\x1b[31m You have chosen to play on hard difficulty. Enemy stats are x1.5.\x1b[0m\n\n`);
+                pressKeyToContinue()
+                mainFight(ChooseRoundsToPlay(50), ChooseDifficultyToPlay(1.5))
+            } else if (action3 === "3") {
+                console.log(`\x1b[31m You have chosen to play on insane difficulty. Enemy stats are x2.\x1b[0m\n\n`);
+                pressKeyToContinue()
+                mainFight(ChooseRoundsToPlay(50), ChooseDifficultyToPlay(2))
+            } else if (action3 === "4") {
+                console.log("LEAVING THE GAME\n")
+                pressKeyToContinue();
+                return;
+            }
+        } else if (action2 === "4") {
+            console.log(`\x1b[31m you have chosen to enter the 20-rounds tower. The final boss awaits you at the top.\x1b[0m\n\n`);
+            console.clear()
+            Menu_difficulty()
+            input3()
+            if (action3 === "1") {
+                console.log(`\x1b[31m You have chosen to play on normal difficulty. Enemy stats are unchanged.\x1b[0m\n\n`);
+                pressKeyToContinue()
+                mainFight(ChooseRoundsToPlay(100), ChooseDifficultyToPlay(1))
+            } else if (action3 === "2") {
+                console.log(`\x1b[31m You have chosen to play on hard difficulty. Enemy stats are x1.5.\x1b[0m\n\n`);
+                pressKeyToContinue()
+                mainFight(ChooseRoundsToPlay(100), ChooseDifficultyToPlay(1.5))
+            } else if (action3 === "3") {
+                console.log(`\x1b[31m You have chosen to play on insane difficulty. Enemy stats are x2.\x1b[0m\n\n`);
+                pressKeyToContinue()
+                mainFight(ChooseRoundsToPlay(100), ChooseDifficultyToPlay(2))
+            } else if (action3 === "4") {
+                console.log("LEAVING THE GAME\n")
+                pressKeyToContinue();
+                return;
+            }
+        } else if (action2 === "5") {
+            console.log("LEAVING THE GAME\n")
+            pressKeyToContinue();
+            return;
+        }
     } else if (action1 === "2") {
         console.log("LEAVING THE GAME\n")
         pressKeyToContinue();
@@ -345,11 +363,11 @@ export function mainFight(roundsToPlay: number, Difficulty: number) {
         }
     }
     if (roundJoué === roundsToPlay) {
-    console.log(`${characterChoisi.name} stands before the dungeon gates, sword in hand. The gates creak open, \nrevealing ${bosschoisi.name}, a terrifying creature. The epic battle begins.`);
-    pressKeyToContinue();
-    if (characterHp > 0) {
-        bossFight();
-    }
+        console.log(`${characterChoisi.name} stands before the dungeon gates, sword in hand. The gates creak open, \nrevealing ${bosschoisi.name}, a terrifying creature. The epic battle begins.`);
+        pressKeyToContinue();
+        if (characterHp > 0) {
+            bossFight();
+        }
     }
 }
 
