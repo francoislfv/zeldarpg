@@ -2,7 +2,7 @@ import * as rl from 'readline-sync';
 import enemy from './enemy';
 import character from './character';
 import boss from './boss';
-import { Menu_welcome_player } from '../mods/basic_game_customization';
+import { Menu_welcome_player, Menu_Rounds, ChooseRoundsToPlay, ChooseDifficultyToPlay, Menu_difficulty} from '../mods/basic_game_customization';
 
 
 
@@ -38,7 +38,7 @@ export function inputMenu(): string {
 
 
 
-export function fight() {
+export function fight(Difficulty: number) {
 
     const action = inputMenu();
 
@@ -47,11 +47,11 @@ export function fight() {
 
 
     if (action === "1") {
-        const damageDealtEnemy = Math.min(enemyChoisi.str)
+        const damageDealtEnemy = Math.min(enemyChoisi.str * Difficulty)
         characterHp = characterHp - damageDealtEnemy
 
         const damageDealtChar = Math.min(characterChoisi.str)
-        enemyHp = enemyHp - damageDealtChar
+        enemyHp = enemyHp * Difficulty - damageDealtChar
 
         console.log(`\n\x1b[3m You attacked and dealt ${damageDealtChar} damages! \x1b[0m\n`);
         console.log(`\x1b[3m ${enemyChoisi.name} attacked and dealt ${damageDealtEnemy} damages! \x1b[0m\n`);
@@ -91,7 +91,7 @@ export function bossFight() {
     
     while (characterHp > 0 && bossHp > 0) {
         bossHpDisplay();
-        const action = inputMenu(); // Let the player choose an action
+        const action = inputMenu()
         let characterHpDebut: number = characterChoisi.hp;
 
         if (action === "1") {
@@ -122,11 +122,11 @@ export function bossFight() {
         }
 
         characterHp = Math.min(characterHp, characterHpDebut);
-        pressKeyToContinue(); // Pause and clear the screen before the next iteration
+        pressKeyToContinue()
     }
     const isBossDefeated = bossHp <= 0;
     
-    // Display boss lore based on the outcome
+  
     displayBossLore(isBossDefeated);
 }
 
@@ -142,15 +142,15 @@ function displayBossLore(isBossDefeated: boolean) {
     }
 }
 
-export function hpDisplay() {
+export function hpDisplay(Difficulty: number) {
 
 
     const charRemainingHp = Math.max(0, characterHp);
-    const enemyRemainingHp = Math.max(0, enemyHp);
+    const enemyRemainingHp = Math.max(0, enemyHp * Difficulty);
 
 
     console.log(` ⚔️  - FIGHT ${etageactuel} - ⚔️\n`);
-    console.log(`\x1b[31m${enemyChoisi.name}\x1b[0m\nHP : ${"❤️ ".repeat(enemyRemainingHp)}${"💔".repeat(Math.max(0, enemyHpDebut - enemyRemainingHp))}  ${enemyRemainingHp}/${enemyHpDebut}\n`);
+    console.log(`\x1b[31m${enemyChoisi.name}\x1b[0m\nHP : ${"❤️ ".repeat(enemyRemainingHp)}${"💔".repeat(Math.max(0, enemyHpDebut - enemyRemainingHp))}  ${enemyRemainingHp}/${enemyHpDebut * Difficulty}\n`);
     console.log(`\x1b[32m${characterChoisi.name}\x1b[0m\nHP : ${"❤️ ".repeat(charRemainingHp)}${"💔".repeat(Math.max(0, characterHpDebut - charRemainingHp))}  ${charRemainingHp}/${characterHpDebut}\n`);
 
 }
@@ -177,7 +177,8 @@ export function pressKeyToContinue() {
 
 
 let action1: string;
-;
+let action2: string;
+let action3: string;
 
 
 
@@ -188,6 +189,19 @@ export function input1(): string {
     return action1;
 }
 
+export function input2(): string {
+
+    let getInput = (question: string) => rl.question(`${question}\n`);
+    action2 = getInput('');
+    return action2;
+}
+
+export function input3(): string {
+
+    let getInput = (question: string) => rl.question(`${question}\n`);
+    action3 = getInput('');
+    return action3;
+}
 
 
 
@@ -209,13 +223,108 @@ export function checkround() {
 }
 
 
+// let roundsToPlay: number
 
 
-export function mainFight() {
-    while (roundJoué < 3) {
+export function jeu() {
+    Menu_welcome_player();
+    input1();
+    console.clear();
+    if (action1 === "1") {
+        Menu_Rounds();
+        input2();
+            if (action2 === "1") {
+                console.log(`\x1b[31m you have chosen to enter the 10-rounds tower. The final boss awaits you at the top.\x1b[0m\n\n`);
+                console.clear()
+                
+                Menu_difficulty()
+                input3()
+                if (action3 === "1") {
+                    console.log(`\x1b[31m You have chosen to play on normal difficulty. Enemy stats are unchanged.\x1b[0m\n\n`);
+                pressKeyToContinue()
+                    mainFight(ChooseRoundsToPlay(10), ChooseDifficultyToPlay(1))
+                } else if (action3 === "2") {
+                    console.log(`\x1b[31m You have chosen to play on hard difficulty. Enemy stats are x1.5.\x1b[0m\n\n`);
+                    pressKeyToContinue()
+                    console.log("1111cc")
+                    mainFight(ChooseRoundsToPlay(10), ChooseDifficultyToPlay(1.5))
+                    console.log("21°03NNCNKC")
+                } else if (action3 === "3") {
+                    console.log(`\x1b[31m You have chosen to play on hard difficulty. Enemy stats are x1.5.\x1b[0m\n\n`);
+                    pressKeyToContinue()
+                    mainFight(ChooseRoundsToPlay(10), ChooseDifficultyToPlay(2))
+                }
+            } else if (action2 === "2") {
+                console.log(`\x1b[31m you have chosen to enter the 20-rounds tower. The final boss awaits you at the top.\x1b[0m\n\n`);
+                console.clear()
+                Menu_difficulty()
+                input3()
+                if (action3 === "1") {
+                    console.log(`\x1b[31m You have chosen to play on normal difficulty. Enemy stats are unchanged.\x1b[0m\n\n`);
+                    pressKeyToContinue()
+                    mainFight(ChooseRoundsToPlay(20), ChooseDifficultyToPlay(1))
+                } else if (action3 === "2") {
+                    console.log(`\x1b[31m You have chosen to play on hard difficulty. Enemy stats are x1.5.\x1b[0m\n\n`);
+                    pressKeyToContinue()
+                    mainFight(ChooseRoundsToPlay(20), ChooseDifficultyToPlay(1.5))
+                } else if (action3 === "3") {
+                    console.log(`\x1b[31m You have chosen to play on insane difficulty. Enemy stats are x2.\x1b[0m\n\n`);
+                    pressKeyToContinue()
+                    mainFight(ChooseRoundsToPlay(20), ChooseDifficultyToPlay(2))
+                }
+            } else if (action2 === "3") {
+                console.log(`\x1b[31m you have chosen to enter the 50-rounds tower. The final boss awaits you at the top.\x1b[0m\n\n`);
+                console.clear()
+                Menu_difficulty()
+                input3()
+                if (action3 === "1") {
+                    console.log(`\x1b[31m You have chosen to play on normal difficulty. Enemy stats are unchanged.\x1b[0m\n\n`);
+                    pressKeyToContinue()
+                    mainFight(ChooseRoundsToPlay(50), ChooseDifficultyToPlay(1))
+                } else if (action3 === "2") {
+                    console.log(`\x1b[31m You have chosen to play on hard difficulty. Enemy stats are x1.5.\x1b[0m\n\n`);
+                    pressKeyToContinue()
+                    mainFight(ChooseRoundsToPlay(50), ChooseDifficultyToPlay(1.5))
+                } else if (action3 === "3") {
+                    console.log(`\x1b[31m You have chosen to play on insane difficulty. Enemy stats are x2.\x1b[0m\n\n`);
+                    pressKeyToContinue()
+                    mainFight(ChooseRoundsToPlay(50), ChooseDifficultyToPlay(2))
+                }
+            } else if (action2 === "4") {
+                console.log(`\x1b[31m you have chosen to enter the 20-rounds tower. The final boss awaits you at the top.\x1b[0m\n\n`);
+                console.clear()
+                Menu_difficulty()
+                input3()
+                if (action3 === "1") {
+                    console.log(`\x1b[31m You have chosen to play on normal difficulty. Enemy stats are unchanged.\x1b[0m\n\n`);
+                    pressKeyToContinue()
+                    mainFight(ChooseRoundsToPlay(100), ChooseDifficultyToPlay(1))
+                } else if (action3 === "2") {
+                    console.log(`\x1b[31m You have chosen to play on hard difficulty. Enemy stats are x1.5.\x1b[0m\n\n`);
+                    pressKeyToContinue()
+                    mainFight(ChooseRoundsToPlay(100), ChooseDifficultyToPlay(1.5))
+                } else if (action3 === "3") {
+                    console.log(`\x1b[31m You have chosen to play on insane difficulty. Enemy stats are x2.\x1b[0m\n\n`);
+                    pressKeyToContinue()
+                    mainFight(ChooseRoundsToPlay(100), ChooseDifficultyToPlay(2))
+                }
+            }
+    } else if (action1 === "2") {
+        console.log("LEAVING THE GAME\n")
+        pressKeyToContinue();
+        return;
+    }
+
+}
+
+jeu()
+
+export function mainFight(roundsToPlay: number, Difficulty: number) {
+
+    while (roundJoué < roundsToPlay) {
         if (characterHp > 0 && enemyHp > 0) {
-            hpDisplay(); // Display HP before taking action
-            fight();
+            hpDisplay(Difficulty);
+            fight(Difficulty);
             pressKeyToContinue();
         } else {
             etageactuel = etageactuel + 1;
@@ -231,12 +340,11 @@ export function mainFight() {
 
             if (characterHp <= 0) {
                 console.log("You are dead...");
-                return; // End the game if the character is dead
+                return;
             }
         }
     }
-    if (roundJoué === 3) {
-    // Start the boss fight after completing 3 rounds
+    if (roundJoué === roundsToPlay) {
     console.log(`${characterChoisi.name} stands before the dungeon gates, sword in hand. The gates creak open, \nrevealing ${bosschoisi.name}, a terrifying creature. The epic battle begins.`);
     pressKeyToContinue();
     if (characterHp > 0) {
@@ -247,18 +355,3 @@ export function mainFight() {
 
 
 
-export function jeu() {
-    Menu_welcome_player();
-    input1();
-    console.clear();
-    if (action1 === "1") {
-        mainFight()
-    } else if (action1 === "2") {
-        console.log("LEAVING THE GAME\n")
-        pressKeyToContinue()
-        return;
-    }
-
-}
-
-jeu()
