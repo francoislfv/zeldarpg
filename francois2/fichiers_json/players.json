@@ -12,7 +12,8 @@
         "luck": 10,
         "race": 1,
         "class": 1,
-        "rarity": 1
+        "rarity": 1,
+        "coin": 12
     },
     {
         "id": 2,
@@ -27,7 +28,8 @@
         "luck": 25,
         "race": 6,
         "class": 1,
-        "rarity": 2
+        "rarity": 2,
+        "coin": 12
     },
     {
         "id": 3,
@@ -42,7 +44,8 @@
         "luck": 10,
         "race": 2,
         "class": 5,
-        "rarity": 3
+        "rarity": 3,
+        "coin": 12
     },
     {
         "id": 4,
@@ -57,7 +60,8 @@
         "luck": 10,
         "race": 2,
         "class": 6,
-        "rarity": 4
+        "rarity": 4,
+        "coin": 12
     },
     {
         "id": 5,
@@ -72,6 +76,7 @@
         "luck": 10,
         "race": 14,
         "class": 3,
-        "rarity": 5
+        "rarity": 5,
+        "coin": 12
     }
 ]
