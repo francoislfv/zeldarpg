@@ -58,19 +58,19 @@ export function main() {
                         if (action3 === "1") {
                             console.log(`\x1b[3mYou choosed to play 10 rounds before the boss fight.\x1b[0m\n`);
                             pressKeyToContinue();
-                            
+                            Rounds_10();
                         } else if (action3 === "2") {
                             console.log(`\x1b[3mYou choosed to play 20 rounds before the boss fight.\x1b[0m\n`);
                             pressKeyToContinue();
-                           // Rounds_20();
+                            Rounds_20();
                         } else if (action3 === "3") {
                             console.log(`\x1b[3mYou choosed to play 50 rounds before the boss fight.\x1b[0m\n`);
                             pressKeyToContinue();
-                            //Rounds_50();
+                            Rounds_50();
                         } else if (action3 === "4") {
                             console.log(`\x1b[3mYou choosed to play 100 rounds before the boss fight.\x1b[0m\n`);
                             pressKeyToContinue();
-                            //Rounds_100(); 
+                            Rounds_100(); 
                         } else if (action3 === "5") {
                                main();
                         }
@@ -81,25 +81,26 @@ export function main() {
             } else if(action2 === "2") {
                 console.log(`\x1b[3mYou choosed the hard difficulty, enemy stats are x1.5.\x1b[0m\n`);
                 Diff_hard();
-                console.clear();
+                console.log(enemyChoisi.hp, enemyChoisi.str, enemyChoisi.name);
+               // console.clear();
                 Menu_Rounds();
                         input3()
                         if (action3 === "1") {
                             console.log(`\x1b[3mYou choosed to play 10 rounds before the boss fight.\x1b[0m\n`);
                             pressKeyToContinue();
-                           // Rounds_10();
+                            Rounds_10();
                         } else if (action3 === "2") {
                             console.log(`\x1b[3mYou choosed to play 20 rounds before the boss fight.\x1b[0m\n`);
                             pressKeyToContinue();
-                           // Rounds_20();
+                            Rounds_20();
                         } else if (action3 === "3") {
                             console.log(`\x1b[3mYou choosed to play 50 rounds before the boss fight.\x1b[0m\n`);
                             pressKeyToContinue();
-                          //  Rounds_50();
+                            Rounds_50();
                         } else if (action3 === "4") {
                             console.log(`\x1b[3mYou choosed to play 100 rounds before the boss fight.\x1b[0m\n`);
                             pressKeyToContinue();
-                           // Rounds_100(); 
+                            Rounds_100(); 
                         } else if (action3 === "5") {
                                 main();
                         }
@@ -113,7 +114,8 @@ export function main() {
             } else if (action2 === "3") {
                 console.log(`\x1b[3mYou choosed the insane difficulty, enemy stats are x2.\x1b[0m\n`);
                 Diff_insane();
-                console.clear();
+                console.log(enemyChoisi.hp, enemyChoisi.str, enemyChoisi.name);
+                //console.clear();
                 Menu_Rounds();
                         input3()
                         if (action3 === "1") {
@@ -123,15 +125,15 @@ export function main() {
                         } else if (action3 === "2") {
                             console.log(`\x1b[3mYou choosed to play 20 rounds before the boss fight.\x1b[0m\n`);
                             pressKeyToContinue();
-                        //  Rounds_20();
+                            Rounds_20();
                         } else if (action3 === "3") {
                             console.log(`\x1b[3mYou choosed to play 50 rounds before the boss fight.\x1b[0m\n`);
                             pressKeyToContinue();
-                        //   Rounds_50();
+                            Rounds_50();
                         } else if (action3 === "4") {
                             console.log(`\x1b[3mYou choosed to play 100 rounds before the boss fight.\x1b[0m\n`);
                             pressKeyToContinue();
-                        //   Rounds_100(); 
+                            Rounds_100(); 
                         } else if (action3 === "5") {
                                 main();
                         }

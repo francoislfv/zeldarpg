@@ -46,7 +46,7 @@ export function fight() {
     if (action === "1") {
         const damageDealtEnemy = Math.min(enemyChoisi.str)
         characterHp = characterHp - damageDealtEnemy
-
+        
         const damageDealtChar = Math.min(characterChoisi.str)
         enemyHp = enemyHp - damageDealtChar
 
@@ -147,7 +147,7 @@ export function input3(): string {
 
 
 
-let roundJoué = 1;
+let roundJoué = 0;
 
 
 function checkround() {
@@ -168,7 +168,6 @@ export function mainFight() {
             hpDisplay();
             fight();
             pressKeyToContinue();
-            console.log(roundJoué)
         } else {
             etageactuel = etageactuel + 1;
             checkround();
